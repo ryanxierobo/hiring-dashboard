@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiring — Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --yc: #FF6600;
+  --yc-dim: #FF660018;
+  --yc-soft: #FF660030;
+  --bg: #FAFAF9;
+  --surface: #FFFFFF;
+  --border: #E5E5E3;
+  --border-strong: #D4D4D1;
+  --text: #1A1A18;
+  --text-secondary: #6B6B66;
+  --text-tertiary: #9C9C96;
+  --danger: #DC2626;
+  --success: #16A34A;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+html { font-size: 14px; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* === TOPBAR === */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 24px; height: 52px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-logo {
+  font-family: var(--mono); font-weight: 700; font-size: 13px;
+  color: var(--yc); letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 8px;
+  user-select: none;
+}
+.topbar-logo .mark {
+  width: 22px; height: 22px; background: var(--yc);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 11px; font-weight: 700;
+}
+.topbar-search {
+  flex: 1; max-width: 420px; position: relative;
+}
+.topbar-search input {
+  width: 100%; height: 32px; padding: 0 12px 0 32px;
+  border: 1px solid var(--border); background: var(--bg);
+  font-family: var(--mono); font-size: 12px; color: var(--text);
+  outline: none; transition: border-color 0.15s;
+}
+.topbar-search input:focus { border-color: var(--yc); }
+.topbar-search input::placeholder { color: var(--text-tertiary); }
+.topbar-search .icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--text-tertiary); font-size: 13px; pointer-events: none;
+}
+.topbar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.topbar-stats {
+  font-family: var(--mono); font-size: 11px; color: var(--text-secondary);
+  display: flex; gap: 16px;
+}
+.topbar-stats span { display: flex; align-items: center; gap: 4px; }
+.topbar-stats .dot {
+  width: 6px; height: 6px; background: var(--text-tertiary); display: inline-block;
+}
+.topbar-stats .dot.active { background: var(--yc); }
+
+.btn {
+  height: 32px; padding: 0 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--text); cursor: pointer; transition: all 0.1s;
+  display: inline-flex; align-items: center; gap: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.btn:hover { border-color: var(--text); }
+.btn.primary { background: var(--yc); color: white; border-color: var(--yc); }
+.btn.primary:hover { background: #E85D00; }
+.btn.ghost { border: none; background: none; color: var(--text-secondary); }
+.btn.ghost:hover { color: var(--text); }
+.btn.sm { height: 26px; padding: 0 10px; font-size: 10px; }
+.btn.danger { color: var(--danger); }
+.btn.danger:hover { background: #FEE2E2; border-color: var(--danger); }
+
+/* === PIPELINE === */
+.pipeline-wrap {
+  display: flex; gap: 0; height: calc(100vh - 52px);
+  overflow-x: auto; padding: 0;
+}
+.stage {
+  flex: 1; min-width: 240px; max-width: 320px;
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  transition: background 0.15s;
+}
+.stage:last-child { border-right: none; }
+.stage.drag-over { background: var(--yc-dim); }
+.stage-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky; top: 0;
+}
+.stage-title {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.stage-count {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--text); background: var(--bg);
+  padding: 1px 7px; min-width: 22px; text-align: center;
+  border: 1px solid var(--border);
+}
+.stage-bar {
+  height: 2px; margin-top: 8px;
+  background: var(--border);
+  position: relative; overflow: hidden;
+}
+.stage-bar-fill {
+  height: 100%; background: var(--yc);
+  transition: width 0.3s ease;
+}
+.stage-body {
+  flex: 1; overflow-y: auto; padding: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stage-body::-webkit-scrollbar { width: 4px; }
+.stage-body::-webkit-scrollbar-thumb { background: var(--border-strong); }
+
+/* === CANDIDATE CARD === */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  cursor: grab; user-select: none;
+  transition: all 0.1s;
+  position: relative;
+}
+.card:active { cursor: grabbing; }
+.card:hover { border-color: var(--border-strong); }
+.card.dragging { opacity: 0.4; }
+.card.highlight {
+  border-color: var(--yc);
+  box-shadow: inset 2px 0 0 var(--yc);
+}
+.card-top {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+}
+.card-name {
+  font-weight: 600; font-size: 13px; line-height: 1.3;
+  color: var(--text);
+}
+.card-flag {
+  width: 8px; height: 8px; flex-shrink: 0; margin-top: 4px;
+  border-radius: 50%;
+}
+.card-flag.hot { background: var(--yc); }
+.card-flag.warm { background: #F59E0B; }
+.card-flag.cold { background: var(--border-strong); }
+.card-role {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-secondary); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-meta {
+  display: flex; gap: 8px; margin-top: 6px;
+  font-family: var(--mono); font-size: 10px; color: var(--text-tertiary);
+}
+.card-tag {
+  padding: 1px 5px;
+  background: var(--bg); border: 1px solid var(--border);
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-secondary);
+}
+.card-actions {
+  position: absolute; top: 6px; right: 6px;
+  display: none; gap: 2px;
+}
+.card:hover .card-actions { display: flex; }
+.card-actions button {
+  width: 22px; height: 22px; border: none; background: none;
+  cursor: pointer; color: var(--text-tertiary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+.card-actions button:hover { color: var(--yc); }
+
+/* === COMMAND BAR === */
+.cmdbar-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.3); backdrop-filter: blur(2px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding-top: 20vh;
+}
+.cmdbar-overlay.open { display: flex; }
+.cmdbar {
+  width: 560px; background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  animation: cmdSlide 0.12s ease-out;
+}
+@keyframes cmdSlide { from { opacity: 0; transform: translateY(-8px); } }
+.cmdbar-input-wrap {
+  display: flex; align-items: center; padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cmdbar-prefix {
+  font-family: var(--mono); font-size: 14px; font-weight: 700;
+  color: var(--yc); margin-right: 8px;
+}
+.cmdbar-input {
+  flex: 1; height: 52px; border: none; background: none;
+  font-family: var(--mono); font-size: 14px; color: var(--text);
+  outline: none;
+}
+.cmdbar-input::placeholder { color: var(--text-tertiary); }
+.cmdbar-hint {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-tertiary); padding: 0 16px;
+  display: flex; align-items: center; gap: 4px;
+}
+.cmdbar-hint kbd {
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 1px 5px; font-size: 10px;
+}
+.cmdbar-results {
+  max-height: 300px; overflow-y: auto;
+}
+.cmdbar-results .result-item {
+  padding: 10px 16px; cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.08s;
+}
+.cmdbar-results .result-item:hover,
+.cmdbar-results .result-item.selected { background: var(--yc-dim); }
+.result-icon {
+  width: 28px; height: 28px; background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--text-secondary); flex-shrink: 0;
+}
+.result-text { flex: 1; }
+.result-title { font-size: 13px; font-weight: 500; }
+.result-sub { font-family: var(--mono); font-size: 11px; color: var(--text-tertiary); }
+.cmdbar-footer {
+  padding: 8px 16px; border-top: 1px solid var(--border);
+  font-family: var(--mono); font-size: 10px; color: var(--text-tertiary);
+  display: flex; gap: 16px;
+}
+
+/* === ADD CANDIDATE PANEL === */
+.panel-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.2);
+  display: none;
+}
+.panel-overlay.open { display: block; }
+.panel {
+  position: fixed; top: 0; right: -480px; z-index: 501;
+  width: 460px; height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  transition: right 0.2s ease;
+  display: flex; flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.08);
+}
+.panel.open { right: 0; }
+.panel-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.panel-title {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.panel-body { flex: 1; overflow-y: auto; padding: 20px; }
+.panel-footer {
+  padding: 16px 20px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; justify-content: flex-end;
+}
+
+.field { margin-bottom: 16px; }
+.field-label {
+  display: block; font-family: var(--mono); font-size: 10px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+  color: var(--text-secondary); margin-bottom: 6px;
+}
+.field-input, .field-select, .field-textarea {
+  width: 100%; height: 36px; padding: 0 12px;
+  border: 1px solid var(--border); background: var(--bg);
+  font-family: var(--sans); font-size: 13px; color: var(--text);
+  outline: none; transition: border-color 0.15s;
+}
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--yc);
+}
+.field-textarea { height: 80px; padding: 10px 12px; resize: vertical; }
+.field-select { appearance: none; cursor: pointer; }
+.field-row { display: flex; gap: 12px; }
+.field-row .field { flex: 1; }
+
+/* === DETAIL PANEL === */
+.detail-header {
+  padding: 20px; border-bottom: 1px solid var(--border);
+}
+.detail-name { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.detail-role {
+  font-family: var(--mono); font-size: 12px; color: var(--text-secondary);
+}
+.detail-stage-badge {
+  display: inline-block; margin-top: 8px;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; background: var(--yc-dim);
+  color: var(--yc); border: 1px solid var(--yc-soft);
+}
+.detail-section { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.detail-section-title {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-tertiary); margin-bottom: 10px;
+}
+.detail-row {
+  display: flex; justify-content: space-between;
+  padding: 4px 0; font-size: 13px;
+}
+.detail-row .label { color: var(--text-secondary); }
+.detail-row .value { font-weight: 500; font-family: var(--mono); font-size: 12px; }
+.detail-timeline { padding: 16px 20px; }
+.timeline-item {
+  display: flex; gap: 12px; padding: 8px 0;
+  position: relative;
+}
+.timeline-item::before {
+  content: ''; position: absolute;
+  left: 5px; top: 28px; bottom: -8px;
+  width: 1px; background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-dot {
+  width: 11px; height: 11px; flex-shrink: 0; margin-top: 3px;
+  border: 2px solid var(--border-strong); background: var(--surface);
+}
+.timeline-dot.active { border-color: var(--yc); background: var(--yc); }
+.timeline-text { font-size: 12px; color: var(--text-secondary); }
+.timeline-text strong { color: var(--text); }
+.timeline-date {
+  font-family: var(--mono); font-size: 10px; color: var(--text-tertiary);
+}
+.detail-actions {
+  padding: 16px 20px; display: flex; gap: 8px; flex-wrap: wrap;
+}
+.detail-notes { padding: 16px 20px; }
+.detail-notes textarea {
+  width: 100%; height: 60px; padding: 10px 12px; resize: vertical;
+  border: 1px solid var(--border); background: var(--bg);
+  font-family: var(--sans); font-size: 13px; color: var(--text);
+  outline: none;
+}
+.detail-notes textarea:focus { border-color: var(--yc); }
+
+/* === TOAST === */
+.toast-container {
+  position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.toast {
+  padding: 10px 16px; background: var(--text);
+  color: white; font-family: var(--mono); font-size: 12px;
+  animation: toastIn 0.2s ease;
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.success { border-left: 3px solid var(--success); }
+.toast.error { border-left: 3px solid var(--danger); }
+.toast.info { border-left: 3px solid var(--yc); }
+@keyframes toastIn { from { opacity: 0; transform: translateX(20px); } }
+
+/* === EMPTY STATE === */
+.empty-state {
+  padding: 24px 16px; text-align: center;
+  color: var(--text-tertiary);
+}
+.empty-state .icon { font-size: 24px; margin-bottom: 8px; opacity: 0.4; }
+.empty-state .msg {
+  font-family: var(--mono); font-size: 11px;
+}
+
+/* === AGENT LOG === */
+.agent-log {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 0; background: #1A1A18;
+  transition: height 0.2s ease;
+  z-index: 400; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.agent-log.open { height: 200px; }
+.agent-log-header {
+  padding: 8px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+.agent-log-header span {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px; color: var(--yc);
+}
+.agent-log-body {
+  flex: 1; overflow-y: auto; padding: 8px 16px;
+  font-family: var(--mono); font-size: 11px; color: #AAA;
+}
+.agent-log-body .log-entry { padding: 2px 0; }
+.agent-log-body .log-entry .ts { color: #666; }
+.agent-log-body .log-entry .method { color: var(--yc); }
+.agent-log-body .log-entry .ok { color: var(--success); }
+.agent-log-body .log-entry .err { color: var(--danger); }
+
+/* Utility */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="mark">H</div>
+    HIRING PIPELINE
+  </div>
+  <div class="topbar-search">
+    <span class="icon">&#x2315;</span>
+    <input type="text" id="searchInput" placeholder="Search candidates... ( / for commands )" />
+  </div>
+  <div class="topbar-stats" id="topbarStats"></div>
+  <div class="topbar-actions">
+    <button class="btn ghost" onclick="toggleAgentLog()" title="Agent log">&#x2263; Log</button>
+    <button class="btn primary" onclick="openAddPanel()">+ Add</button>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="pipeline-wrap" id="pipeline"></div>
+
+<!-- COMMAND BAR -->
+<div class="cmdbar-overlay" id="cmdOverlay" onclick="closeCmdBar()">
+  <div class="cmdbar" onclick="event.stopPropagation()">
+    <div class="cmdbar-input-wrap">
+      <span class="cmdbar-prefix">/</span>
+      <input type="text" class="cmdbar-input" id="cmdInput"
+        placeholder="add, move, find, stats, export..." autocomplete="off" />
+    </div>
+    <div class="cmdbar-results" id="cmdResults"></div>
+    <div class="cmdbar-footer">
+      <span><kbd>Enter</kbd> execute</span>
+      <span><kbd>Esc</kbd> close</span>
+      <span><kbd>Tab</kbd> autocomplete</span>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT PANEL -->
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="panel-header">
+    <span class="panel-title" id="panelTitle">Add Candidate</span>
+    <button class="btn ghost" onclick="closePanel()">&times;</button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-footer" id="panelFooter"></div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- AGENT LOG -->
+<div class="agent-log" id="agentLog">
+  <div class="agent-log-header">
+    <span>Agent API Log</span>
+    <button class="btn ghost sm" onclick="toggleAgentLog()" style="color:#888">&times;</button>
+  </div>
+  <div class="agent-log-body" id="agentLogBody"></div>
+</div>
+
+<script>
+// ============================================================
+//  DATA LAYER
+// ============================================================
+const STAGES = ['Applied','Phone Screen','Technical','Onsite','Offer','Hired'];
+const SOURCES = ['Referral','LinkedIn','AngelList','Inbound','YC Network','University','Other'];
+const ROLES_SUGGEST = [
+  'Software Engineer','Senior Software Engineer','Staff Engineer',
+  'Frontend Engineer','Backend Engineer','Full Stack Engineer',
+  'Engineering Manager','Product Manager','Designer',
+  'Data Scientist','DevOps Engineer','QA Engineer',
+  'VP Engineering','CTO','Head of Product'
+];
+
+let candidates = [];
+let nextId = 1;
+
+function genId() { return 'c-' + (nextId++); }
+function now() { return new Date().toISOString().split('T')[0]; }
+
+function seedData() {
+  const sample = [
+    { name:'Alex Chen', role:'Senior Software Engineer', source:'YC Network', stage:'Technical', flag:'hot',
+      email:'alex@example.com', notes:'Strong systems background. Ex-Stripe.' },
+    { name:'Priya Sharma', role:'Full Stack Engineer', source:'Referral', stage:'Phone Screen', flag:'warm',
+      email:'priya@example.com', notes:'Referred by Sam. 4 yrs React + Go.' },
+    { name:'Jordan Lee', role:'Product Manager', source:'LinkedIn', stage:'Applied', flag:'cold',
+      email:'jordan@example.com', notes:'PM at Series B fintech.' },
+    { name:'Sam Rivera', role:'Backend Engineer', source:'Inbound', stage:'Onsite', flag:'hot',
+      email:'sam@example.com', notes:'Built distributed queue system. Very strong.' },
+    { name:'Taylor Kim', role:'Designer', source:'AngelList', stage:'Applied', flag:'warm',
+      email:'taylor@example.com', notes:'Portfolio is excellent. Design systems focus.' },
+    { name:'Morgan Wu', role:'Staff Engineer', source:'YC Network', stage:'Offer', flag:'hot',
+      email:'morgan@example.com', notes:'Ex-Google L6. Distributed systems expert.' },
+    { name:'Casey Park', role:'DevOps Engineer', source:'Referral', stage:'Technical', flag:'warm',
+      email:'casey@example.com', notes:'K8s specialist. Currently at mid-stage startup.' },
+    { name:'Riley Johnson', role:'Frontend Engineer', source:'University', stage:'Applied', flag:'cold',
+      email:'riley@example.com', notes:'MIT grad. Strong React + TypeScript.' },
+    { name:'Avery Patel', role:'Engineering Manager', source:'LinkedIn', stage:'Phone Screen', flag:'warm',
+      email:'avery@example.com', notes:'Managed 12-person team at Series C.' },
+    { name:'Quinn Zhang', role:'Data Scientist', source:'Inbound', stage:'Hired', flag:'hot',
+      email:'quinn@example.com', notes:'PhD ML. Joined March 2026.' },
+  ];
+  sample.forEach(s => {
+    const id = genId();
+    const timeline = [{ date: now(), action: `Added to ${s.stage}` }];
+    candidates.push({ id, ...s, added: now(), timeline });
+  });
+}
+
+// ============================================================
+//  RENDERING
+// ============================================================
+function render() {
+  const pipeline = document.getElementById('pipeline');
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+
+  pipeline.innerHTML = STAGES.map(stage => {
+    const cards = candidates.filter(c => {
+      if (c.stage !== stage) return false;
+      if (search && !c.name.toLowerCase().includes(search) && !c.role.toLowerCase().includes(search)) return false;
+      return true;
+    });
+    const total = candidates.filter(c => c.stage === stage).length;
+    const pct = candidates.length ? Math.round((total / candidates.length) * 100) : 0;
+
+    return `
+      <div class="stage" data-stage="${stage}"
+        ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+        <div class="stage-header">
+          <div class="stage-title">
+            ${stage}
+            <span class="stage-count">${total}</span>
+          </div>
+          <div class="stage-bar"><div class="stage-bar-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="stage-body">
+          ${cards.length === 0 ? `
+            <div class="empty-state">
+              <div class="icon">&#x25A1;</div>
+              <div class="msg">${search ? 'No matches' : 'No candidates'}</div>
+            </div>` : cards.map(c => renderCard(c)).join('')}
+        </div>
+      </div>`;
+  }).join('');
+
+  updateStats();
+}
+
+function renderCard(c) {
+  return `
+    <div class="card ${c._highlight ? 'highlight' : ''}" draggable="true"
+      ondragstart="onDragStart(event, '${c.id}')"
+      ondragend="onDragEnd(event)"
+      onclick="openDetail('${c.id}')">
+      <div class="card-actions">
+        <button onclick="event.stopPropagation(); advanceCandidate('${c.id}')" title="Advance">&#x25B6;</button>
+        <button onclick="event.stopPropagation(); archiveCandidate('${c.id}')" title="Remove">&times;</button>
+      </div>
+      <div class="card-top">
+        <span class="card-name">${esc(c.name)}</span>
+        <span class="card-flag ${c.flag || ''}"></span>
+      </div>
+      <div class="card-role">${esc(c.role)}</div>
+      <div class="card-meta">
+        <span class="card-tag">${esc(c.source)}</span>
+        <span>${c.added}</span>
+      </div>
+    </div>`;
+}
+
+function updateStats() {
+  const el = document.getElementById('topbarStats');
+  const total = candidates.length;
+  const hot = candidates.filter(c => c.flag === 'hot').length;
+  const hired = candidates.filter(c => c.stage === 'Hired').length;
+  el.innerHTML = `
+    <span><span class="dot active"></span> ${total} total</span>
+    <span><span class="dot" style="background:var(--yc)"></span> ${hot} hot</span>
+    <span><span class="dot" style="background:var(--success)"></span> ${hired} hired</span>`;
+}
+
+// ============================================================
+//  DRAG & DROP
+// ============================================================
+let dragId = null;
+
+function onDragStart(e, id) {
+  dragId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.target.classList.add('dragging');
+}
+function onDragEnd(e) {
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('drag-over'));
+  dragId = null;
+}
+function onDragOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+function onDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+function onDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  const stage = e.currentTarget.dataset.stage;
+  if (dragId && stage) {
+    moveCandidate(dragId, stage);
+  }
+}
+
+// ============================================================
+//  ACTIONS
+// ============================================================
+function addCandidate(data) {
+  const id = genId();
+  const c = {
+    id,
+    name: data.name || 'Unknown',
+    role: data.role || 'Unknown Role',
+    email: data.email || '',
+    source: data.source || 'Other',
+    stage: data.stage || 'Applied',
+    flag: data.flag || 'cold',
+    notes: data.notes || '',
+    added: now(),
+    timeline: [{ date: now(), action: `Added to ${data.stage || 'Applied'}` }]
+  };
+  candidates.push(c);
+  render();
+  toast(`Added ${c.name}`, 'success');
+  return c;
+}
+
+function moveCandidate(id, newStage) {
+  const c = candidates.find(x => x.id === id);
+  if (!c) return null;
+  if (!STAGES.includes(newStage)) return null;
+  const oldStage = c.stage;
+  if (oldStage === newStage) return c;
+  c.stage = newStage;
+  c.timeline.push({ date: now(), action: `${oldStage} → ${newStage}` });
+  render();
+  toast(`${c.name}: ${oldStage} → ${newStage}`, 'info');
+  return c;
+}
+
+function advanceCandidate(id) {
+  const c = candidates.find(x => x.id === id);
+  if (!c) return null;
+  const idx = STAGES.indexOf(c.stage);
+  if (idx < STAGES.length - 1) {
+    return moveCandidate(id, STAGES[idx + 1]);
+  }
+  return c;
+}
+
+function archiveCandidate(id) {
+  const idx = candidates.findIndex(x => x.id === id);
+  if (idx === -1) return false;
+  const c = candidates.splice(idx, 1)[0];
+  render();
+  toast(`Removed ${c.name}`, 'error');
+  return true;
+}
+
+function findCandidates(query) {
+  const q = (query || '').toLowerCase();
+  return candidates.filter(c =>
+    c.name.toLowerCase().includes(q) ||
+    c.role.toLowerCase().includes(q) ||
+    c.source.toLowerCase().includes(q) ||
+    c.stage.toLowerCase().includes(q) ||
+    (c.email && c.email.toLowerCase().includes(q)) ||
+    (c.notes && c.notes.toLowerCase().includes(q))
+  );
+}
+
+function getCandidate(id) {
+  return candidates.find(c => c.id === id) || null;
+}
+
+function updateCandidate(id, data) {
+  const c = candidates.find(x => x.id === id);
+  if (!c) return null;
+  if (data.name !== undefined) c.name = data.name;
+  if (data.role !== undefined) c.role = data.role;
+  if (data.email !== undefined) c.email = data.email;
+  if (data.source !== undefined) c.source = data.source;
+  if (data.flag !== undefined) c.flag = data.flag;
+  if (data.notes !== undefined) c.notes = data.notes;
+  if (data.stage !== undefined && data.stage !== c.stage) {
+    moveCandidate(id, data.stage);
+  }
+  render();
+  return c;
+}
+
+function getStats() {
+  const stats = { total: candidates.length, byStage: {}, bySource: {}, byFlag: {} };
+  STAGES.forEach(s => stats.byStage[s] = 0);
+  candidates.forEach(c => {
+    stats.byStage[c.stage] = (stats.byStage[c.stage] || 0) + 1;
+    stats.bySource[c.source] = (stats.bySource[c.source] || 0) + 1;
+    stats.byFlag[c.flag] = (stats.byFlag[c.flag] || 0) + 1;
+  });
+  stats.conversionRate = stats.total > 0
+    ? ((stats.byStage['Hired'] || 0) / stats.total * 100).toFixed(1) + '%'
+    : '0%';
+  return stats;
+}
+
+function exportData() {
+  return JSON.parse(JSON.stringify(candidates));
+}
+
+function importData(data) {
+  if (!Array.isArray(data)) return false;
+  candidates = data;
+  nextId = Math.max(...candidates.map(c => parseInt(c.id.split('-')[1]) || 0)) + 1;
+  render();
+  toast(`Imported ${data.length} candidates`, 'success');
+  return true;
+}
+
+// ============================================================
+//  PANELS
+// ============================================================
+function openAddPanel() {
+  const panel = document.getElementById('panel');
+  const overlay = document.getElementById('panelOverlay');
+  document.getElementById('panelTitle').textContent = 'Add Candidate';
+
+  document.getElementById('panelBody').innerHTML = `
+    <div class="field">
+      <label class="field-label">Full Name</label>
+      <input class="field-input" id="f-name" placeholder="e.g. Alex Chen" autofocus />
+    </div>
+    <div class="field">
+      <label class="field-label">Role</label>
+      <input class="field-input" id="f-role" placeholder="e.g. Senior Software Engineer" list="roleList" />
+      <datalist id="roleList">${ROLES_SUGGEST.map(r => `<option value="${r}">`).join('')}</datalist>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Email</label>
+        <input class="field-input" id="f-email" placeholder="alex@example.com" />
+      </div>
+      <div class="field">
+        <label class="field-label">Source</label>
+        <select class="field-select" id="f-source">
+          ${SOURCES.map(s => `<option>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Stage</label>
+        <select class="field-select" id="f-stage">
+          ${STAGES.map(s => `<option>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Priority</label>
+        <select class="field-select" id="f-flag">
+          <option value="cold">Cold</option>
+          <option value="warm">Warm</option>
+          <option value="hot">Hot</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Notes</label>
+      <textarea class="field-textarea" id="f-notes" placeholder="Background, impressions, links..."></textarea>
+    </div>`;
+
+  document.getElementById('panelFooter').innerHTML = `
+    <button class="btn" onclick="closePanel()">Cancel</button>
+    <button class="btn primary" onclick="submitAdd()">Add Candidate</button>`;
+
+  panel.classList.add('open');
+  overlay.classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 100);
+}
+
+function submitAdd() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { toast('Name is required', 'error'); return; }
+  addCandidate({
+    name,
+    role: document.getElementById('f-role').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    source: document.getElementById('f-source').value,
+    stage: document.getElementById('f-stage').value,
+    flag: document.getElementById('f-flag').value,
+    notes: document.getElementById('f-notes').value.trim(),
+  });
+  closePanel();
+}
+
+function openDetail(id) {
+  const c = candidates.find(x => x.id === id);
+  if (!c) return;
+
+  const panel = document.getElementById('panel');
+  const overlay = document.getElementById('panelOverlay');
+  document.getElementById('panelTitle').textContent = 'Candidate Detail';
+
+  const stageIdx = STAGES.indexOf(c.stage);
+
+  document.getElementById('panelBody').innerHTML = `
+    <div class="detail-header">
+      <div class="detail-name">${esc(c.name)}</div>
+      <div class="detail-role">${esc(c.role)}</div>
+      <div class="detail-stage-badge">${esc(c.stage)}</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Info</div>
+      <div class="detail-row"><span class="label">Email</span><span class="value">${esc(c.email || '—')}</span></div>
+      <div class="detail-row"><span class="label">Source</span><span class="value">${esc(c.source)}</span></div>
+      <div class="detail-row"><span class="label">Priority</span><span class="value">${c.flag}</span></div>
+      <div class="detail-row"><span class="label">Added</span><span class="value">${c.added}</span></div>
+    </div>
+    <div class="detail-actions">
+      ${STAGES.map((s, i) => `
+        <button class="btn sm ${i === stageIdx ? 'primary' : ''}"
+          onclick="moveCandidate('${c.id}','${s}'); openDetail('${c.id}')">
+          ${s}
+        </button>`).join('')}
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Timeline</div>
+      ${c.timeline.map((t, i) => `
+        <div class="timeline-item">
+          <div class="timeline-dot ${i === c.timeline.length - 1 ? 'active' : ''}"></div>
+          <div>
+            <div class="timeline-text"><strong>${esc(t.action)}</strong></div>
+            <div class="timeline-date">${t.date}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="detail-notes">
+      <div class="detail-section-title">Notes</div>
+      <textarea class="field-textarea" id="detail-notes"
+        onchange="updateCandidate('${c.id}', {notes: this.value})">${esc(c.notes || '')}</textarea>
+    </div>`;
+
+  document.getElementById('panelFooter').innerHTML = `
+    <button class="btn danger" onclick="archiveCandidate('${c.id}'); closePanel()">Remove</button>
+    <button class="btn" onclick="closePanel()">Close</button>`;
+
+  panel.classList.add('open');
+  overlay.classList.add('open');
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('panelOverlay').classList.remove('open');
+}
+
+// ============================================================
+//  COMMAND BAR
+// ============================================================
+const COMMANDS = [
+  { cmd: 'add', icon: '+', desc: 'Add a new candidate', usage: 'add <name> as <role>' },
+  { cmd: 'move', icon: '&#x25B6;', desc: 'Move candidate to stage', usage: 'move <name> to <stage>' },
+  { cmd: 'find', icon: '&#x2315;', desc: 'Search candidates', usage: 'find <query>' },
+  { cmd: 'stats', icon: '#', desc: 'Show pipeline statistics', usage: 'stats' },
+  { cmd: 'advance', icon: '&#x25B6;&#x25B6;', desc: 'Advance candidate to next stage', usage: 'advance <name>' },
+  { cmd: 'flag', icon: '&#x25CF;', desc: 'Set candidate priority', usage: 'flag <name> <hot|warm|cold>' },
+  { cmd: 'export', icon: '&#x21E9;', desc: 'Export all data as JSON', usage: 'export' },
+  { cmd: 'remove', icon: '&times;', desc: 'Remove a candidate', usage: 'remove <name>' },
+  { cmd: 'list', icon: '&#x2261;', desc: 'List candidates in stage', usage: 'list <stage>' },
+  { cmd: 'help', icon: '?', desc: 'Show available commands', usage: 'help' },
+];
+
+function openCmdBar() {
+  const overlay = document.getElementById('cmdOverlay');
+  overlay.classList.add('open');
+  const input = document.getElementById('cmdInput');
+  input.value = '';
+  input.focus();
+  showCmdSuggestions('');
+}
+
+function closeCmdBar() {
+  document.getElementById('cmdOverlay').classList.remove('open');
+}
+
+function showCmdSuggestions(query) {
+  const results = document.getElementById('cmdResults');
+  const q = query.toLowerCase().trim();
+  const parts = q.split(/\s+/);
+  const cmdMatch = parts[0] || '';
+
+  const matching = COMMANDS.filter(c => c.cmd.startsWith(cmdMatch) || c.desc.toLowerCase().includes(q));
+
+  if (matching.length === 0 && q) {
+    results.innerHTML = `<div class="result-item"><div class="result-icon">?</div>
+      <div class="result-text"><div class="result-title">No matching command</div>
+      <div class="result-sub">Try: add, move, find, stats, help</div></div></div>`;
+    return;
+  }
+
+  results.innerHTML = matching.map((c, i) => `
+    <div class="result-item ${i === 0 ? 'selected' : ''}" onclick="prefillCmd('${c.cmd}')">
+      <div class="result-icon">${c.icon}</div>
+      <div class="result-text">
+        <div class="result-title">/${c.cmd}</div>
+        <div class="result-sub">${c.usage}</div>
+      </div>
+    </div>`).join('');
+}
+
+function prefillCmd(cmd) {
+  const input = document.getElementById('cmdInput');
+  input.value = cmd + ' ';
+  input.focus();
+}
+
+function executeCmd(raw) {
+  const input = raw.trim();
+  if (!input) return;
+
+  const parts = input.split(/\s+/);
+  const cmd = parts[0].toLowerCase().replace(/^\//, '');
+  const rest = parts.slice(1).join(' ');
+
+  switch (cmd) {
+    case 'add': {
+      const match = rest.match(/^(.+?)\s+as\s+(.+)$/i);
+      if (match) {
+        addCandidate({ name: match[1].trim(), role: match[2].trim() });
+      } else if (rest) {
+        addCandidate({ name: rest });
+      } else {
+        closeCmdBar(); openAddPanel(); return;
+      }
+      break;
+    }
+    case 'move': {
+      const match = rest.match(/^(.+?)\s+to\s+(.+)$/i);
+      if (match) {
+        const name = match[1].trim().toLowerCase();
+        const stage = match[2].trim();
+        const target = STAGES.find(s => s.toLowerCase().includes(stage.toLowerCase()));
+        const c = candidates.find(x => x.name.toLowerCase().includes(name));
+        if (c && target) moveCandidate(c.id, target);
+        else toast('Could not find candidate or stage', 'error');
+      }
+      break;
+    }
+    case 'find': {
+      document.getElementById('searchInput').value = rest;
+      render();
+      break;
+    }
+    case 'stats': {
+      const s = getStats();
+      toast(`${s.total} candidates | ${s.conversionRate} hired`, 'info');
+      break;
+    }
+    case 'advance': {
+      const c = candidates.find(x => x.name.toLowerCase().includes(rest.toLowerCase()));
+      if (c) advanceCandidate(c.id);
+      else toast('Candidate not found', 'error');
+      break;
+    }
+    case 'flag': {
+      const match = rest.match(/^(.+?)\s+(hot|warm|cold)$/i);
+      if (match) {
+        const c = candidates.find(x => x.name.toLowerCase().includes(match[1].trim().toLowerCase()));
+        if (c) { c.flag = match[2].toLowerCase(); render(); toast(`${c.name} → ${c.flag}`, 'info'); }
+      }
+      break;
+    }
+    case 'export': {
+      const json = JSON.stringify(exportData(), null, 2);
+      navigator.clipboard.writeText(json).then(() => toast('Copied to clipboard', 'success'));
+      break;
+    }
+    case 'remove': {
+      const c = candidates.find(x => x.name.toLowerCase().includes(rest.toLowerCase()));
+      if (c) archiveCandidate(c.id);
+      else toast('Candidate not found', 'error');
+      break;
+    }
+    case 'list': {
+      const stage = STAGES.find(s => s.toLowerCase().includes(rest.toLowerCase()));
+      if (stage) {
+        const names = candidates.filter(c => c.stage === stage).map(c => c.name).join(', ');
+        toast(`${stage}: ${names || 'empty'}`, 'info');
+      }
+      break;
+    }
+    case 'help': {
+      toast('Commands: add, move, find, stats, advance, flag, export, remove, list', 'info');
+      break;
+    }
+    default:
+      toast(`Unknown command: ${cmd}`, 'error');
+  }
+  closeCmdBar();
+}
+
+// ============================================================
+//  AGENT API — window.HiringTool
+// ============================================================
+const agentLogEntries = [];
+
+function agentLog(method, args, result, isError) {
+  const entry = {
+    ts: new Date().toISOString().split('T')[1].split('.')[0],
+    method, args, result, isError
+  };
+  agentLogEntries.push(entry);
+  const body = document.getElementById('agentLogBody');
+  body.innerHTML += `<div class="log-entry">
+    <span class="ts">${entry.ts}</span>
+    <span class="method">.${method}()</span>
+    <span class="${isError ? 'err' : 'ok'}">${isError ? 'ERR' : 'OK'}</span>
+    ${typeof result === 'string' ? ` — ${esc(result)}` : ''}
+  </div>`;
+  body.scrollTop = body.scrollHeight;
+}
+
+window.HiringTool = {
+  // Add a candidate: HiringTool.add({ name, role, email, source, stage, flag, notes })
+  add(data) {
+    try {
+      const c = addCandidate(data);
+      agentLog('add', data, c.name, false);
+      return c;
+    } catch (e) { agentLog('add', data, e.message, true); return null; }
+  },
+
+  // Move candidate to a stage: HiringTool.move(id, stageName)
+  move(id, stage) {
+    try {
+      const c = moveCandidate(id, stage);
+      agentLog('move', { id, stage }, c ? c.name : 'not found', !c);
+      return c;
+    } catch (e) { agentLog('move', { id, stage }, e.message, true); return null; }
+  },
+
+  // Advance to next stage: HiringTool.advance(id)
+  advance(id) {
+    try {
+      const c = advanceCandidate(id);
+      agentLog('advance', { id }, c ? `${c.name} → ${c.stage}` : 'not found', !c);
+      return c;
+    } catch (e) { agentLog('advance', { id }, e.message, true); return null; }
+  },
+
+  // Search candidates: HiringTool.find(query)
+  find(query) {
+    const results = findCandidates(query);
+    agentLog('find', { query }, `${results.length} results`, false);
+    return results;
+  },
+
+  // Get a candidate by ID: HiringTool.get(id)
+  get(id) {
+    const c = getCandidate(id);
+    agentLog('get', { id }, c ? c.name : 'not found', !c);
+    return c;
+  },
+
+  // Update candidate fields: HiringTool.update(id, { name, role, ... })
+  update(id, data) {
+    const c = updateCandidate(id, data);
+    agentLog('update', { id, ...data }, c ? 'updated' : 'not found', !c);
+    return c;
+  },
+
+  // Remove a candidate: HiringTool.remove(id)
+  remove(id) {
+    const ok = archiveCandidate(id);
+    agentLog('remove', { id }, ok ? 'removed' : 'not found', !ok);
+    return ok;
+  },
+
+  // Get pipeline statistics
+  stats() {
+    const s = getStats();
+    agentLog('stats', {}, `${s.total} candidates`, false);
+    return s;
+  },
+
+  // List all candidates (optionally filtered by stage)
+  list(stage) {
+    let results = stage
+      ? candidates.filter(c => c.stage.toLowerCase().includes(stage.toLowerCase()))
+      : [...candidates];
+    agentLog('list', { stage }, `${results.length} candidates`, false);
+    return results;
+  },
+
+  // Export all data
+  export() {
+    const data = exportData();
+    agentLog('export', {}, `${data.length} candidates`, false);
+    return data;
+  },
+
+  // Import data (replaces current)
+  import(data) {
+    const ok = importData(data);
+    agentLog('import', {}, ok ? `${data.length} imported` : 'failed', !ok);
+    return ok;
+  },
+
+  // Execute a command string (same as command bar)
+  exec(command) {
+    agentLog('exec', { command }, 'executing', false);
+    executeCmd(command);
+    return true;
+  },
+
+  // Get available stages
+  stages() { return [...STAGES]; },
+
+  // Get available sources
+  sources() { return [...SOURCES]; },
+
+  // Bulk operations
+  bulk: {
+    add(items) {
+      return items.map(d => window.HiringTool.add(d));
+    },
+    move(ids, stage) {
+      return ids.map(id => window.HiringTool.move(id, stage));
+    },
+    advance(ids) {
+      return ids.map(id => window.HiringTool.advance(id));
+    }
+  },
+
+  // Event hooks for agents to subscribe
+  _hooks: { onAdd: [], onMove: [], onRemove: [] },
+  on(event, fn) {
+    if (this._hooks['on' + event.charAt(0).toUpperCase() + event.slice(1)]) {
+      this._hooks['on' + event.charAt(0).toUpperCase() + event.slice(1)].push(fn);
+    }
+  },
+
+  // API version
+  version: '1.0.0',
+  help() {
+    return {
+      methods: ['add','move','advance','find','get','update','remove','stats','list','export','import','exec','stages','sources','bulk.add','bulk.move','bulk.advance','on','help'],
+      usage: {
+        add: 'HiringTool.add({ name, role, email?, source?, stage?, flag?, notes? })',
+        move: 'HiringTool.move(candidateId, stageName)',
+        advance: 'HiringTool.advance(candidateId)',
+        find: 'HiringTool.find(searchQuery)',
+        get: 'HiringTool.get(candidateId)',
+        update: 'HiringTool.update(candidateId, { ...fields })',
+        remove: 'HiringTool.remove(candidateId)',
+        stats: 'HiringTool.stats()',
+        list: 'HiringTool.list(stageName?)',
+        exec: 'HiringTool.exec("add Jane Doe as Engineer")',
+        'bulk.add': 'HiringTool.bulk.add([{ name, role }, ...])',
+      }
+    };
+  }
+};
+
+// ============================================================
+//  UTILITIES
+// ============================================================
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+function toast(msg, type) {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type || 'info'}`;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 200); }, 3000);
+}
+
+function toggleAgentLog() {
+  document.getElementById('agentLog').classList.toggle('open');
+}
+
+// ============================================================
+//  KEYBOARD
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  // "/" opens command bar (when not focused on input)
+  if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    openCmdBar();
+  }
+  // Escape closes overlays
+  if (e.key === 'Escape') {
+    closeCmdBar();
+    closePanel();
+  }
+});
+
+document.getElementById('cmdInput').addEventListener('input', (e) => {
+  showCmdSuggestions(e.target.value);
+});
+
+document.getElementById('cmdInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    executeCmd(e.target.value);
+  }
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const sel = document.querySelector('.cmdbar-results .result-item.selected .result-title');
+    if (sel) {
+      e.target.value = sel.textContent.replace('/', '') + ' ';
+      showCmdSuggestions(e.target.value);
+    }
+  }
+});
+
+document.getElementById('searchInput').addEventListener('input', () => render());
+document.getElementById('searchInput').addEventListener('keydown', (e) => {
+  if (e.key === '/' && e.target.value === '') {
+    e.preventDefault();
+    openCmdBar();
+  }
+});
+
+// ============================================================
+//  INIT
+// ============================================================
+seedData();
+render();
+console.log('%c HiringTool API ready — try HiringTool.help()', 'color: #FF6600; font-weight: bold;');
+</script>
+</body>
+</html>

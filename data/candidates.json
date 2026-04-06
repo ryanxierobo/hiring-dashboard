@@ -1,0 +1,56 @@
+[
+  {
+    "id": "a1b2c3d4",
+    "name": "Alice Chen",
+    "role": "Software Engineer",
+    "stage": "applied"
+  },
+  {
+    "id": "e5f6g7h8",
+    "name": "Bob Park",
+    "role": "Product Designer",
+    "stage": "interview"
+  },
+  {
+    "id": "i9j0k1l2",
+    "name": "Carol Wu",
+    "role": "Backend Engineer",
+    "stage": "offer"
+  },
+  {
+    "id": "m3n4o5p6",
+    "name": "David Kim",
+    "role": "Frontend Engineer",
+    "stage": "applied"
+  },
+  {
+    "id": "q7r8s9t0",
+    "name": "Eva Martinez",
+    "role": "Engineering Manager",
+    "stage": "hired"
+  },
+  {
+    "id": "u1v2w3x4",
+    "name": "Frank Lee",
+    "role": "Data Scientist",
+    "stage": "interview"
+  },
+  {
+    "id": "y5z6a7b8",
+    "name": "Grace Okafor",
+    "role": "Product Manager",
+    "stage": "rejected"
+  },
+  {
+    "id": "c9d0e1f2",
+    "name": "Henry Zhao",
+    "role": "DevOps Engineer",
+    "stage": "applied"
+  },
+  {
+    "id": "5ec70646",
+    "name": "Mike Fan",
+    "role": "Director of Software",
+    "stage": "rejected"
+  }
+]
