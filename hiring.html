@@ -519,6 +519,33 @@ let nextId = 1;
 function genId() { return 'c-' + (nextId++); }
 function now() { return new Date().toISOString().split('T')[0]; }
 
+// ============================================================
+//  PERSISTENCE — localStorage
+// ============================================================
+function saveToStorage() {
+  try {
+    localStorage.setItem('hiring_candidates', JSON.stringify(candidates));
+    localStorage.setItem('hiring_nextId', nextId);
+  } catch (e) { console.warn('Storage save failed:', e); }
+}
+
+function loadFromStorage() {
+  try {
+    const stored = localStorage.getItem('hiring_candidates');
+    if (stored) {
+      candidates = JSON.parse(stored);
+      nextId = parseInt(localStorage.getItem('hiring_nextId') || '1');
+      return true;
+    }
+  } catch (e) { console.warn('Storage load failed:', e); }
+  return false;
+}
+
+function clearStorage() {
+  localStorage.removeItem('hiring_candidates');
+  localStorage.removeItem('hiring_nextId');
+}
+
 function seedData() {
   const sample = [
     { name:'Alex Chen', role:'Senior Software Engineer', source:'YC Network', stage:'Technical', flag:'hot',
@@ -671,6 +698,7 @@ function addCandidate(data) {
   };
   candidates.push(c);
   render();
+  saveToStorage();
   toast(`Added ${c.name}`, 'success');
   return c;
 }
@@ -684,6 +712,7 @@ function moveCandidate(id, newStage) {
   c.stage = newStage;
   c.timeline.push({ date: now(), action: `${oldStage} → ${newStage}` });
   render();
+  saveToStorage();
   toast(`${c.name}: ${oldStage} → ${newStage}`, 'info');
   return c;
 }
@@ -703,6 +732,7 @@ function archiveCandidate(id) {
   if (idx === -1) return false;
   const c = candidates.splice(idx, 1)[0];
   render();
+  saveToStorage();
   toast(`Removed ${c.name}`, 'error');
   return true;
 }
@@ -736,6 +766,7 @@ function updateCandidate(id, data) {
     moveCandidate(id, data.stage);
   }
   render();
+  saveToStorage();
   return c;
 }
 
@@ -762,6 +793,7 @@ function importData(data) {
   candidates = data;
   nextId = Math.max(...candidates.map(c => parseInt(c.id.split('-')[1]) || 0)) + 1;
   render();
+  saveToStorage();
   toast(`Imported ${data.length} candidates`, 'success');
   return true;
 }
@@ -1187,8 +1219,28 @@ window.HiringTool = {
     }
   },
 
+  // Reset to seed data (clears localStorage)
+  reset() {
+    clearStorage();
+    candidates = [];
+    nextId = 1;
+    seedData();
+    saveToStorage();
+    render();
+    agentLog('reset', {}, 'reset to seed data', false);
+    toast('Pipeline reset to defaults', 'info');
+    return true;
+  },
+
+  // Save current state explicitly
+  save() {
+    saveToStorage();
+    agentLog('save', {}, `${candidates.length} candidates saved`, false);
+    return true;
+  },
+
   // API version
-  version: '1.0.0',
+  version: '1.1.0',
   help() {
     return {
       methods: ['add','move','advance','find','get','update','remove','stats','list','export','import','exec','stages','sources','bulk.add','bulk.move','bulk.advance','on','help'],
@@ -1276,9 +1328,14 @@ document.getElementById('searchInput').addEventListener('keydown', (e) => {
 // ============================================================
 //  INIT
 // ============================================================
-seedData();
+// Load from localStorage, fall back to seed data
+if (!loadFromStorage()) {
+  seedData();
+  saveToStorage();
+}
 render();
 console.log('%c HiringTool API ready — try HiringTool.help()', 'color: #FF6600; font-weight: bold;');
+console.log('%c Data persisted to localStorage — survives refresh', 'color: #16A34A;');
 </script>
 </body>
 </html>
