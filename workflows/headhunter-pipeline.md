@@ -78,12 +78,47 @@ HiringTool.add({
 - **Warm 🟡:** Adjacent domain, solid background, needs more evaluation
 - **Cold ⚪:** Speculative, early career, unclear fit
 
-### Step 3: Outreach (Applied → Phone Screen)
+### Step 3: Outreach via LinkedIn (Applied → Phone Screen)
 
+**LinkedIn Message Procedure (fixes for bugs 2-4):**
+
+```bash
+# 1. Navigate to profile (get the profileUrn for compose URL)
+openclaw browser navigate "https://www.linkedin.com/in/[linkedin-slug]"
+
+# 2. ALWAYS use --efficient for LinkedIn snapshots (Bug #4: full snapshot times out)
+openclaw browser snapshot --efficient
+
+# 3. Find the Message button — look for compose URL in the snapshot:
+#    /messaging/compose/?profileUrn=urn%3Ali%3Afsd_profile%3A[ID]&recipient=[ID]
+#    Click the "Message" link ref to open compose
+openclaw browser click [message-ref]
+
+# 4. Wait for compose box, then snapshot again
+sleep 2 && openclaw browser snapshot --efficient
+
+# 5. Type the message into the compose textbox
+openclaw browser type [textbox-ref] "[message text]"
+
+# 6. EXPLICITLY click the Send button (Bug #2: --submit does NOT work for LinkedIn)
+#    Do NOT rely on --submit flag. Always find and click the Send button ref.
+openclaw browser click [send-button-ref]
+
+# 7. Screenshot to verify delivery
+sleep 2 && openclaw browser screenshot
+```
+
+**⚠️ Known gotchas:**
+- `--submit` flag does NOT press LinkedIn's Send button. Always click it explicitly.
+- If candidate has prior message history, compose box is at bottom of thread. Use `snapshot --efficient` to find it.
+- LinkedIn pages are huge. NEVER use full `snapshot` — always use `--efficient`.
+- Alternative: use direct compose URL: `https://www.linkedin.com/messaging/compose/?recipient=[profileUrn]`
+
+**Update pipeline after send:**
 ```javascript
 HiringTool.move(candidateId, 'Phone Screen');
 HiringTool.update(candidateId, {
-  notes: existingNotes + '\n\n[OUTREACH YYYY-MM-DD] [personalized message summary]. [what we highlighted about their work]. [connection to our mission].'
+  notes: existingNotes + '\n\n[OUTREACH YYYY-MM-DD] LinkedIn message sent. [personalized message summary]. [what we highlighted about their work]. Delivery confirmed.'
 });
 ```
 
@@ -178,23 +213,21 @@ openclaw browser evaluate --fn "(function() { var c = HiringTool.add({...}); ret
 - ✅ **Full verification run** — sourced → added to board → LinkedIn message sent → delivery confirmed → board updated
 
 ### 🐛 Bugs Found During E2E Test
-1. **localStorage lost on code update** — when serving from `/private/tmp/`, the seed data runs fresh. Need to either (a) serve the updated HTML with persistence, or (b) persist to a JSON file instead of localStorage so it survives across server restarts.
-2. **`--submit` flag on `openclaw browser type` doesn't auto-press Enter for LinkedIn** — had to click Send button separately. Workflow should always explicitly click the Send button.
-3. **LinkedIn message compose opens in existing thread** — if there's prior conversation history, the compose box is at the bottom of a long chat. Need to scroll to it or use the compose URL directly.
-4. **Snapshot timeout on heavy pages** — LinkedIn profile page is massive; `--efficient` flag is essential. Full snapshot can timeout.
+1. ✅ **FIXED: localStorage lost on code update** — killed old server at `/private/tmp/`, restarted serving from workspace clone which has persistence code. Server now runs from `/Users/ryan/.openclaw/workspace/hiring-dashboard/`.
+2. ✅ **FIXED: `--submit` flag doesn't work for LinkedIn** — workflow now documents: always explicitly click the Send button ref. Never rely on `--submit`.
+3. ✅ **FIXED: LinkedIn compose opens in existing thread** — workflow now uses `snapshot --efficient` to find compose box regardless of thread position. Also documented direct compose URL as alternative.
+4. ✅ **FIXED: Snapshot timeout on heavy pages** — workflow now mandates `--efficient` flag for all LinkedIn snapshots. Never use full `snapshot` on LinkedIn.
 
 ### TODO for v1.2
-- [ ] **Serve updated HTML** — kill old server, restart with new persistent version
+- [x] **Serve updated HTML** — killed old server, now serving from workspace clone with persistence
+- [x] **LinkedIn outreach procedure** — documented explicit Send button click, --efficient snapshots, compose URL
 - [ ] **File-based persistence** — write candidates to `data/candidates.json` instead of localStorage
 - [ ] **Outreach template system** — generate message from candidate research + configurable templates
 - [ ] **Scoring rubric** — quantified evaluation (1-5) at each stage
 - [ ] **Calendar integration** — auto-schedule interviews
-- [ ] **Slack/Discord notifications** — alert team when candidate advances
+- [ ] **Discord notifications** — alert team when candidate advances
 - [ ] **Batch sourcing** — "find 10 robotics engineers" → bulk pipeline
 - [ ] **Rejection tracking** — why candidates dropped, for pattern analysis
-- [ ] **Email templates** — per-stage outreach templates with variable substitution
-- [ ] **Competitor tracking** — flag if candidate is interviewing elsewhere
-- [ ] **LinkedIn compose via direct URL** — use `/messaging/compose/?recipient=...` URL to avoid thread scrolling issues
 
 ---
 
