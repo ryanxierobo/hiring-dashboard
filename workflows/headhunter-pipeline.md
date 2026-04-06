@@ -172,17 +172,29 @@ openclaw browser evaluate --fn "(function() { var c = HiringTool.add({...}); ret
 - Full pipeline: Applied → Phone Screen → Technical → Onsite
 - Notes enriched at each stage with structured annotations
 
-### TODO for v1.1
-- [ ] **Automated LinkedIn scraping** — structured profile extraction
-- [ ] **Outreach email drafting** — generate personalized emails from research
+### v1.1 — 2026-04-06
+- ✅ **Persistent localStorage** — candidates survive page refresh
+- ✅ **LinkedIn outreach end-to-end** — browser navigates to profile, opens message compose, types personalized message, clicks Send
+- ✅ **Full verification run** — sourced → added to board → LinkedIn message sent → delivery confirmed → board updated
+
+### 🐛 Bugs Found During E2E Test
+1. **localStorage lost on code update** — when serving from `/private/tmp/`, the seed data runs fresh. Need to either (a) serve the updated HTML with persistence, or (b) persist to a JSON file instead of localStorage so it survives across server restarts.
+2. **`--submit` flag on `openclaw browser type` doesn't auto-press Enter for LinkedIn** — had to click Send button separately. Workflow should always explicitly click the Send button.
+3. **LinkedIn message compose opens in existing thread** — if there's prior conversation history, the compose box is at the bottom of a long chat. Need to scroll to it or use the compose URL directly.
+4. **Snapshot timeout on heavy pages** — LinkedIn profile page is massive; `--efficient` flag is essential. Full snapshot can timeout.
+
+### TODO for v1.2
+- [ ] **Serve updated HTML** — kill old server, restart with new persistent version
+- [ ] **File-based persistence** — write candidates to `data/candidates.json` instead of localStorage
+- [ ] **Outreach template system** — generate message from candidate research + configurable templates
 - [ ] **Scoring rubric** — quantified evaluation (1-5) at each stage
 - [ ] **Calendar integration** — auto-schedule interviews
 - [ ] **Slack/Discord notifications** — alert team when candidate advances
 - [ ] **Batch sourcing** — "find 10 robotics engineers" → bulk pipeline
 - [ ] **Rejection tracking** — why candidates dropped, for pattern analysis
-- [ ] **Persistent storage** — save candidates to JSON file, survive page refresh
 - [ ] **Email templates** — per-stage outreach templates with variable substitution
 - [ ] **Competitor tracking** — flag if candidate is interviewing elsewhere
+- [ ] **LinkedIn compose via direct URL** — use `/messaging/compose/?recipient=...` URL to avoid thread scrolling issues
 
 ---
 
