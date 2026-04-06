@@ -28,14 +28,23 @@ Automated headhunter workflow that sources, researches, and pipelines candidates
 
 ## Pipeline Stages
 
-| Stage | Purpose | Agent Actions |
-|-------|---------|---------------|
-| **Applied** | Initial sourcing | Web research, profile enrichment, add candidate |
-| **Phone Screen** | First contact | Send personalized outreach, log response |
-| **Technical** | Skills assessment | Evaluate technical depth, log findings |
-| **Onsite** | Team fit + deep dive | Comprehensive evaluation notes |
-| **Offer** | Decision made | Compensation research, offer details |
-| **Hired** | Done | Onboarding notes |
+| Stage | Owner | Purpose | Actions |
+|-------|-------|---------|--------|
+| **Qualified** | 🤖 Agent | Sourced & researched | Agent adds candidate with enriched profile |
+| **Outreach Sent** | 🤖 Agent | Personalized message sent | Agent sends LinkedIn message after Ryan approves |
+| **Responded** | 👤 Ryan | Candidate replied | Ryan moves here when they respond; signals interest |
+| **Phone Screen** | 👤 Ryan | First call | Ryan conducts, logs notes |
+| **Technical** | 👤 Ryan | Skills assessment | Technical interview |
+| **Onsite** | 👤 Ryan | Team fit + deep dive | On-site evaluation |
+| **Offer** | 👤 Ryan | Decision made | Offer details |
+| **Hired** | 🎉 | Done | Onboarding |
+
+### Workflow
+1. **Agent** sources candidates → adds to **Qualified** column
+2. **Ryan** reviews Qualified candidates → manually moves approved ones to **Outreach Sent**
+3. **Agent** detects move → sends personalized LinkedIn outreach
+4. If candidate responds → Ryan moves to **Responded**
+5. From there, Ryan drives the interview process manually
 
 ## Workflow Steps
 

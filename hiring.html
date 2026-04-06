@@ -103,7 +103,7 @@ body {
   overflow-x: auto; padding: 0;
 }
 .stage {
-  flex: 1; min-width: 240px; max-width: 320px;
+  flex: 1; min-width: 180px; max-width: 280px;
   display: flex; flex-direction: column;
   border-right: 1px solid var(--border);
   background: var(--bg);
@@ -503,7 +503,7 @@ body {
 // ============================================================
 //  DATA LAYER
 // ============================================================
-const STAGES = ['Applied','Phone Screen','Technical','Onsite','Offer','Hired'];
+const STAGES = ['Qualified','Outreach Sent','Responded','Phone Screen','Technical','Onsite','Offer','Hired'];
 const SOURCES = ['Referral','LinkedIn','AngelList','Inbound','YC Network','University','Other'];
 const ROLES_SUGGEST = [
   'Software Engineer','Senior Software Engineer','Staff Engineer',
@@ -526,11 +526,18 @@ function saveToStorage() {
   try {
     localStorage.setItem('hiring_candidates', JSON.stringify(candidates));
     localStorage.setItem('hiring_nextId', nextId);
+    localStorage.setItem('hiring_version', STORAGE_VERSION);
   } catch (e) { console.warn('Storage save failed:', e); }
 }
 
+const STORAGE_VERSION = '2'; // bump when stages change to force reseed
+
 function loadFromStorage() {
   try {
+    if (localStorage.getItem('hiring_version') !== STORAGE_VERSION) {
+      clearStorage();
+      return false;
+    }
     const stored = localStorage.getItem('hiring_candidates');
     if (stored) {
       candidates = JSON.parse(stored);
@@ -550,20 +557,16 @@ function seedData() {
   const sample = [
     { name:'Alex Chen', role:'Senior Software Engineer', source:'YC Network', stage:'Technical', flag:'hot',
       email:'alex@example.com', notes:'Strong systems background. Ex-Stripe.' },
-    { name:'Priya Sharma', role:'Full Stack Engineer', source:'Referral', stage:'Phone Screen', flag:'warm',
+    { name:'Priya Sharma', role:'Full Stack Engineer', source:'Referral', stage:'Outreach Sent', flag:'warm',
       email:'priya@example.com', notes:'Referred by Sam. 4 yrs React + Go.' },
-    { name:'Jordan Lee', role:'Product Manager', source:'LinkedIn', stage:'Applied', flag:'cold',
-      email:'jordan@example.com', notes:'PM at Series B fintech.' },
     { name:'Sam Rivera', role:'Backend Engineer', source:'Inbound', stage:'Onsite', flag:'hot',
       email:'sam@example.com', notes:'Built distributed queue system. Very strong.' },
-    { name:'Taylor Kim', role:'Designer', source:'AngelList', stage:'Applied', flag:'warm',
+    { name:'Taylor Kim', role:'Designer', source:'AngelList', stage:'Qualified', flag:'warm',
       email:'taylor@example.com', notes:'Portfolio is excellent. Design systems focus.' },
     { name:'Morgan Wu', role:'Staff Engineer', source:'YC Network', stage:'Offer', flag:'hot',
       email:'morgan@example.com', notes:'Ex-Google L6. Distributed systems expert.' },
-    { name:'Casey Park', role:'DevOps Engineer', source:'Referral', stage:'Technical', flag:'warm',
-      email:'casey@example.com', notes:'K8s specialist. Currently at mid-stage startup.' },
-    { name:'Riley Johnson', role:'Frontend Engineer', source:'University', stage:'Applied', flag:'cold',
-      email:'riley@example.com', notes:'MIT grad. Strong React + TypeScript.' },
+    { name:'Casey Park', role:'DevOps Engineer', source:'Referral', stage:'Responded', flag:'warm',
+      email:'casey@example.com', notes:'K8s specialist. Currently at mid-stage startup. Responded positively to outreach.' },
     { name:'Avery Patel', role:'Engineering Manager', source:'LinkedIn', stage:'Phone Screen', flag:'warm',
       email:'avery@example.com', notes:'Managed 12-person team at Series C.' },
     { name:'Quinn Zhang', role:'Data Scientist', source:'Inbound', stage:'Hired', flag:'hot',
@@ -640,11 +643,15 @@ function renderCard(c) {
 function updateStats() {
   const el = document.getElementById('topbarStats');
   const total = candidates.length;
-  const hot = candidates.filter(c => c.flag === 'hot').length;
+  const qualified = candidates.filter(c => c.stage === 'Qualified').length;
+  const outreach = candidates.filter(c => c.stage === 'Outreach Sent').length;
+  const responded = candidates.filter(c => c.stage === 'Responded').length;
   const hired = candidates.filter(c => c.stage === 'Hired').length;
   el.innerHTML = `
     <span><span class="dot active"></span> ${total} total</span>
-    <span><span class="dot" style="background:var(--yc)"></span> ${hot} hot</span>
+    <span><span class="dot" style="background:#8B5CF6"></span> ${qualified} qualified</span>
+    <span><span class="dot" style="background:var(--yc)"></span> ${outreach} outreach</span>
+    <span><span class="dot" style="background:#3B82F6"></span> ${responded} responded</span>
     <span><span class="dot" style="background:var(--success)"></span> ${hired} hired</span>`;
 }
 
