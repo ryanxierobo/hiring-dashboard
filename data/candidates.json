@@ -1,167 +1,5 @@
 [
   {
-    "id": "c-9",
-    "name": "Daniel Lussier",
-    "role": "Sr. Mechanical Design Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Robotics Mechanical Design Engineer at Tesla (Optimus team). LOCATION: SF Bay Area. 2nd degree connection \u2014 mutual connections: Shawn Patel, Matt Wulff. Direct humanoid robot mechanical design experience. LinkedIn: linkedin.com/in/dlussier/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/dlussier/"
-  },
-  {
-    "id": "c-10",
-    "name": "Hyungbin Jun",
-    "role": "Sr. Mechanical Design Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Sr Robotics Mechanical Design Engineer at Tesla (Optimus). LOCATION: Palo Alto, CA. EDUCATION: Duke University. 2nd degree \u2014 mutual connection: Hongyi Fan (our co-founder!). 500+ connections, 540 followers. Featured post about joining Tesla robotics team. LinkedIn: linkedin.com/in/hyungbinjun/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/hyungbinjun/"
-  },
-  {
-    "id": "c-11",
-    "name": "Nathan Herrmann",
-    "role": "Sr. Mechanical Design Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "warm",
-    "notes": "CURRENT: Robotics @ Tesla. PAST: Robotics Mechanical Design Engineer. LOCATION: SF Bay Area. 2nd degree connection. LinkedIn: linkedin.com/in/nathan-herrmann-9516bb148/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/nathan-herrmann-9516bb148/"
-  },
-  {
-    "id": "c-12",
-    "name": "Ahmad Kermani",
-    "role": "Sr. Mechanical Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Sr. Mechanical Engineering at Tesla Robotics (Optimus). LOCATION: Vancouver, BC, Canada. 2nd degree connection. Senior-level at Tesla Optimus = deep humanoid hand/actuator experience. LinkedIn: linkedin.com/in/ahmad-kermani-aa10a12a6/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/ahmad-kermani-aa10a12a6/"
-  },
-  {
-    "id": "c-13",
-    "name": "Shitong Pang",
-    "role": "Robotics Mechanical Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "PAST: Robotics Mechanical Design Engineer (likely Tesla). CURRENT: Robotics (new role). LOCATION: Mountain View, CA. 2nd degree connection. Ex-Tesla Optimus = may be more open to new opportunities since they already left. LinkedIn: linkedin.com/in/shitong-pang-1931b9197/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/shitong-pang-1931b9197/"
-  },
-  {
-    "id": "c-14",
-    "name": "Alex Carlson",
-    "role": "Mechanical Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "warm",
-    "notes": "CURRENT: Mechanical Engineer at Apptronik (humanoid robotics company, builds Apollo). LOCATION: Dallas-Fort Worth. 2nd degree \u2014 mutual connections: Isaac Blankenau, Aaed Musa. Apptronik builds full humanoid systems including hands. LinkedIn: linkedin.com/in/alex-carlson-meche/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/alex-carlson-meche/"
-  },
-  {
-    "id": "c-15",
-    "name": "Joe Young",
-    "role": "Sr. Mechanical Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "warm",
-    "notes": "CURRENT: Senior Mechanical Engineer, Robotics Hardware. LOCATION: SF Bay Area. 2nd degree \u2014 10 mutual connections including Sam Fatoohi, Alejandro Hernandez Cordero. Strong robotics hardware background. LinkedIn: linkedin.com/in/joe-young-01456643/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/joe-young-01456643/"
-  },
-  {
-    "id": "c-16",
-    "name": "Aaron Plauch\u00e9",
-    "role": "Robotics Mechanical Engineer",
-    "email": "",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Robotics Mechanical Engineer in Japan. KEY: \"Produced one of the first fully [dexterous hands]\" \u2014 direct hand production experience! LOCATION: Greater Tokyo Area. 2nd degree connection. Exactly the productionize-robotic-hand profile we want. LinkedIn: linkedin.com/in/ajplauche/",
-    "added": "2026-04-06",
-    "timeline": [
-      {
-        "date": "2026-04-06",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/ajplauche/"
-  },
-  {
-    "id": "c-17",
-    "name": "Quanting (Daniel) Xie",
-    "role": "Robotics Engineer / PhD Researcher",
-    "email": "quanting@cmu.edu",
-    "source": "YC Network",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "SOURCED: CMU Robotics PhD (CLAW Lab, advised by Yonatan Bisk). Research: robot manipulation, dexterous manipulation, sim-to-real transfer. Published RA-L, WACV (oral top 2%), ECCE. Ex-Apple MDE Intern. BS/MS MechE from RPI/CMU. Co-founder at Origami Robotics (YC W26). LinkedIn: linkedin.com/in/quanting-xie | Site: quantingxie.github.io",
-    "added": "2026-04-07",
-    "timeline": [
-      {
-        "date": "2026-04-07",
-        "action": "Added to Qualified"
-      }
-    ],
-    "linkedin": "https://www.linkedin.com/in/quanting-xie"
-  },
-  {
     "id": "c-18",
     "name": "Wooseok Choi",
     "role": "Roboticist \u2014 Robotic Hands & Feet",
@@ -216,6 +54,78 @@
     ]
   },
   {
+    "id": "c-34",
+    "name": "Chris Morley",
+    "role": "Hand Controls Engineer \u2014 Tesla Optimus",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/chris-morley-02417316b/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Hand Controls @ Tesla Optimus. LOCATION: SF Bay Area. 2nd degree. LITERALLY works on the Optimus hand. #1 priority target.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-35",
+    "name": "Jiuqi Wang",
+    "role": "ME \u2014 Cable-Driven Robotic Hands",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/jiuqiwang1997/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Mechanical Engineer @ Chestnut Robotics (prev TetherIA). SPECIALTY: Building Cable-Driven Robotic Hands for Dexterous Manipulation. LOCATION: Santa Clara, CA. 2nd degree. 455 followers. Building exactly what we build.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-36",
+    "name": "Shubham Chotia",
+    "role": "Micro Actuator & Motor Design \u2014 Figure",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/shubhamchotia/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Micro Actuator and Motor Design at Figure. LOCATION: SF Bay Area. 2nd degree. Designs the tiny motors that go in robotic hands \u2014 exactly our actuator challenge.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-38",
+    "name": "Jinda Cui",
+    "role": "Dexterous Manipulation Engineer",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/jindacui/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "HEADLINE: \"Dexterous manipulation that works in the real world.\" LOCATION: San Jose, CA. 2nd degree \u2014 13 mutual connections. Tagline is literally our mission.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
     "id": "c-21",
     "name": "Grant Gabrielson",
     "role": "Robotics Engineer",
@@ -225,6 +135,222 @@
     "stage": "Qualified",
     "flag": "hot",
     "notes": "CURRENT: Works on Joints & Body team designing Gamma, a safe humanoid for the home. LOCATION: San Francisco, CA. 2nd degree. Direct joint/body design for humanoid robots.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-28",
+    "name": "Malik Hansen",
+    "role": "Sr. Staff ME \u2014 Boston Dynamics",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/malik-hansen-11775680/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Senior Staff Mechanical Engineer at Boston Dynamics. LOCATION: United States. 2nd degree. Senior Staff level at BD \u2014 very experienced, likely worked on Atlas hand/manipulation.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-37",
+    "name": "Marc Baroudi",
+    "role": "Mechanical Engineer \u2014 Figure AI",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/marcbaroudi/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Mechanical Engineer @ Figure AI. LOCATION: Palo Alto, CA. 2nd degree \u2014 18 mutual connections. 2K followers. Strong network, at Figure.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-39",
+    "name": "Andrew Chen",
+    "role": "Manipulation Engineer \u2014 Tesla Optimus",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/andrew-chen8614/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: \"Achieving Useful Manipulation\" at Tesla Optimus. EDUCATION: UofT EE 2025 \u2014 recent grad! LOCATION: Los Altos, CA. 2nd degree. New grad doing manipulation at Optimus.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-40",
+    "name": "Jordan Neal",
+    "role": "Sr Staff ME \u2014 BD Atlas Actuation",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/jdneal/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Senior Staff Mechanical Engineer at Boston Dynamics \u2014 Atlas Actuation. LOCATION: United States. 2nd degree \u2014 18 mutual connections. Senior Staff level, specifically on Atlas actuation. Very senior.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-41",
+    "name": "Kevin Gim",
+    "role": "Atlas ME \u2014 Boston Dynamics",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/kevingim/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Atlas Mechanical Engineer at Boston Dynamics. LOCATION: Burlington, MA. 2nd degree \u2014 7 mutual connections. Works on Atlas hardware directly.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-48",
+    "name": "Kamyar Ghasemipour",
+    "role": "Founding MTS \u2014 Generalist (Dexterous Manipulation)",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/kamyar-ghasemipour-91278b26b/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Founding Member of Technical Staff @ Generalist. SPECIALTY: Robotic Dexterous Manipulation, ML & Robotics Research. LOCATION: SF, CA. 2nd degree. Founding team at hot robotics startup, dexterous manipulation focus.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-9",
+    "name": "Daniel Lussier",
+    "role": "Sr. Mechanical Design Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Robotics Mechanical Design Engineer at Tesla (Optimus team). LOCATION: SF Bay Area. 2nd degree connection \u2014 mutual connections: Shawn Patel, Matt Wulff. Direct humanoid robot mechanical design experience. LinkedIn: linkedin.com/in/dlussier/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/dlussier/"
+  },
+  {
+    "id": "c-10",
+    "name": "Hyungbin Jun",
+    "role": "Sr. Mechanical Design Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Sr Robotics Mechanical Design Engineer at Tesla (Optimus). LOCATION: Palo Alto, CA. EDUCATION: Duke University. 2nd degree \u2014 mutual connection: Hongyi Fan (our co-founder!). 500+ connections, 540 followers. Featured post about joining Tesla robotics team. LinkedIn: linkedin.com/in/hyungbinjun/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/hyungbinjun/"
+  },
+  {
+    "id": "c-12",
+    "name": "Ahmad Kermani",
+    "role": "Sr. Mechanical Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Sr. Mechanical Engineering at Tesla Robotics (Optimus). LOCATION: Vancouver, BC, Canada. 2nd degree connection. Senior-level at Tesla Optimus = deep humanoid hand/actuator experience. LinkedIn: linkedin.com/in/ahmad-kermani-aa10a12a6/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/ahmad-kermani-aa10a12a6/"
+  },
+  {
+    "id": "c-13",
+    "name": "Shitong Pang",
+    "role": "Robotics Mechanical Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "PAST: Robotics Mechanical Design Engineer (likely Tesla). CURRENT: Robotics (new role). LOCATION: Mountain View, CA. 2nd degree connection. Ex-Tesla Optimus = may be more open to new opportunities since they already left. LinkedIn: linkedin.com/in/shitong-pang-1931b9197/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/shitong-pang-1931b9197/"
+  },
+  {
+    "id": "c-16",
+    "name": "Aaron Plauch\u00e9",
+    "role": "Robotics Mechanical Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Robotics Mechanical Engineer in Japan. KEY: \"Produced one of the first fully [dexterous hands]\" \u2014 direct hand production experience! LOCATION: Greater Tokyo Area. 2nd degree connection. Exactly the productionize-robotic-hand profile we want. LinkedIn: linkedin.com/in/ajplauche/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/ajplauche/"
+  },
+  {
+    "id": "c-33",
+    "name": "Adarsh Ponaka",
+    "role": "Engineer \u2014 Figure AI",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/adarsh-ponaka-13379b14a/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: Figure AI. PAST: Apple, Google[x]. LOCATION: Palo Alto, CA. 2nd degree \u2014 12 mutual connections. Figure AI + Apple + Google X pedigree. Strong.",
     "added": "2026-04-07",
     "timeline": [
       {
@@ -288,6 +414,114 @@
     ]
   },
   {
+    "id": "c-44",
+    "name": "Joo Ham",
+    "role": "Robot Skin & Wearable \u2014 Tesla Optimus",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/joo-ham/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Tesla Optimus. EDUCATION: Stanford PhD. SPECIALTY: Robot Skin & Wearable Electronics. LOCATION: Palo Alto, CA. 2nd degree. Stanford PhD on Optimus \u2014 tactile sensing could be valuable.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-45",
+    "name": "Siddharth Saha",
+    "role": "Engineer \u2014 Tesla Optimus",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/sahasiddharth611/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Tesla Optimus. EDUCATION: CMU + IIT Bombay. LOCATION: Palo Alto, CA. 2nd degree \u2014 25 mutual connections! Strong CMU/IIT pedigree, huge network overlap.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-31",
+    "name": "Se Hwan Jeon",
+    "role": "PhD Candidate \u2014 MIT (Graduating May 2026)",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/sehwan-jeon/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "CURRENT: PhD Candidate @ MIT. GRADUATING: May 2026 \u2014 imminent! RESEARCH: Reinforcement Learning, Optimal Control. LOCATION: Cambridge, MA. 2nd degree. MIT PhD graduating NOW \u2014 perfect new grad timing.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-11",
+    "name": "Nathan Herrmann",
+    "role": "Sr. Mechanical Design Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Robotics @ Tesla. PAST: Robotics Mechanical Design Engineer. LOCATION: SF Bay Area. 2nd degree connection. LinkedIn: linkedin.com/in/nathan-herrmann-9516bb148/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/nathan-herrmann-9516bb148/"
+  },
+  {
+    "id": "c-14",
+    "name": "Alex Carlson",
+    "role": "Mechanical Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Mechanical Engineer at Apptronik (humanoid robotics company, builds Apollo). LOCATION: Dallas-Fort Worth. 2nd degree \u2014 mutual connections: Isaac Blankenau, Aaed Musa. Apptronik builds full humanoid systems including hands. LinkedIn: linkedin.com/in/alex-carlson-meche/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/alex-carlson-meche/"
+  },
+  {
+    "id": "c-15",
+    "name": "Joe Young",
+    "role": "Sr. Mechanical Engineer",
+    "email": "",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Senior Mechanical Engineer, Robotics Hardware. LOCATION: SF Bay Area. 2nd degree \u2014 10 mutual connections including Sam Fatoohi, Alejandro Hernandez Cordero. Strong robotics hardware background. LinkedIn: linkedin.com/in/joe-young-01456643/",
+    "added": "2026-04-06",
+    "timeline": [
+      {
+        "date": "2026-04-06",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/joe-young-01456643/"
+  },
+  {
     "id": "c-25",
     "name": "Richard Qiu",
     "role": "Mechanical Design Engineer \u2014 Tesla",
@@ -342,24 +576,6 @@
     ]
   },
   {
-    "id": "c-28",
-    "name": "Malik Hansen",
-    "role": "Sr. Staff ME \u2014 Boston Dynamics",
-    "email": "",
-    "linkedin": "https://www.linkedin.com/in/malik-hansen-11775680/",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Senior Staff Mechanical Engineer at Boston Dynamics. LOCATION: United States. 2nd degree. Senior Staff level at BD \u2014 very experienced, likely worked on Atlas hand/manipulation.",
-    "added": "2026-04-07",
-    "timeline": [
-      {
-        "date": "2026-04-07",
-        "action": "Added to Qualified"
-      }
-    ]
-  },
-  {
     "id": "c-29",
     "name": "Matthew Torok",
     "role": "Lead Sr. ME \u2014 Sarcos Robotics",
@@ -396,24 +612,6 @@
     ]
   },
   {
-    "id": "c-31",
-    "name": "Se Hwan Jeon",
-    "role": "PhD Candidate \u2014 MIT (Graduating May 2026)",
-    "email": "",
-    "linkedin": "https://www.linkedin.com/in/sehwan-jeon/",
-    "source": "LinkedIn",
-    "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: PhD Candidate @ MIT. GRADUATING: May 2026 \u2014 imminent! RESEARCH: Reinforcement Learning, Optimal Control. LOCATION: Cambridge, MA. 2nd degree. MIT PhD graduating NOW \u2014 perfect new grad timing.",
-    "added": "2026-04-07",
-    "timeline": [
-      {
-        "date": "2026-04-07",
-        "action": "Added to Qualified"
-      }
-    ]
-  },
-  {
     "id": "c-32",
     "name": "Wilson Colin",
     "role": "Lead Robotics ME",
@@ -432,15 +630,15 @@
     ]
   },
   {
-    "id": "c-33",
-    "name": "Adarsh Ponaka",
-    "role": "Engineer \u2014 Figure AI",
+    "id": "c-42",
+    "name": "Russell Wong",
+    "role": "Staff Research Scientist \u2014 BD Humanoid",
     "email": "",
-    "linkedin": "https://www.linkedin.com/in/adarsh-ponaka-13379b14a/",
+    "linkedin": "https://www.linkedin.com/in/russwong89/",
     "source": "LinkedIn",
     "stage": "Qualified",
-    "flag": "hot",
-    "notes": "CURRENT: Figure AI. PAST: Apple, Google[x]. LOCATION: Palo Alto, CA. 2nd degree \u2014 12 mutual connections. Figure AI + Apple + Google X pedigree. Strong.",
+    "flag": "warm",
+    "notes": "CURRENT: Staff Research Scientist @ Boston Dynamics \u2014 Humanoid Robots & AI. LOCATION: Greater Boston. 2nd degree \u2014 19 mutual connections. Research-focused but staff level at BD.",
     "added": "2026-04-07",
     "timeline": [
       {
@@ -448,5 +646,95 @@
         "action": "Added to Qualified"
       }
     ]
+  },
+  {
+    "id": "c-43",
+    "name": "Logan Tutt",
+    "role": "Sr Staff Robotics Engineer \u2014 BD",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/logan-tutt-0a58b759/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Senior Staff Robotics Engineer at Boston Dynamics. LOCATION: Cambridge, MA. 2nd degree. Senior Staff \u2014 very experienced.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-46",
+    "name": "Aadi Vadhavkar",
+    "role": "Engineer \u2014 Tesla Optimus (New Grad)",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/aadi-vadhavkar/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Tesla Optimus. EDUCATION: ME @ Georgia Tech. LOCATION: Skillman, NJ. 2nd degree. Georgia Tech ME on Optimus team \u2014 new grad level.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-47",
+    "name": "Daniel Choi",
+    "role": "Robotics/AI Engineer \u2014 Figure",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/danielc00/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: Robotics/AI Engineer @ Figure. LOCATION: SF Bay Area. 2nd degree \u2014 10 mutual connections. At Figure, strong network.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-49",
+    "name": "Carlo Bosio",
+    "role": "PhD Student Robotics \u2014 UC Berkeley",
+    "email": "",
+    "linkedin": "https://www.linkedin.com/in/cbosio/",
+    "source": "LinkedIn",
+    "stage": "Qualified",
+    "flag": "warm",
+    "notes": "CURRENT: PhD Student in Robotics @ UC Berkeley. LOCATION: Berkeley, CA. 2nd degree. Berkeley robotics PhD \u2014 potential new grad hire.",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ]
+  },
+  {
+    "id": "c-17",
+    "name": "Quanting (Daniel) Xie",
+    "role": "Robotics Engineer / PhD Researcher",
+    "email": "quanting@cmu.edu",
+    "source": "YC Network",
+    "stage": "Qualified",
+    "flag": "hot",
+    "notes": "SOURCED: CMU Robotics PhD (CLAW Lab, advised by Yonatan Bisk). Research: robot manipulation, dexterous manipulation, sim-to-real transfer. Published RA-L, WACV (oral top 2%), ECCE. Ex-Apple MDE Intern. BS/MS MechE from RPI/CMU. Co-founder at Origami Robotics (YC W26). LinkedIn: linkedin.com/in/quanting-xie | Site: quantingxie.github.io",
+    "added": "2026-04-07",
+    "timeline": [
+      {
+        "date": "2026-04-07",
+        "action": "Added to Qualified"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/quanting-xie"
   }
 ]
