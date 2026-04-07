@@ -530,7 +530,7 @@ function saveToStorage() {
   } catch (e) { console.warn('Storage save failed:', e); }
 }
 
-const STORAGE_VERSION = '3'; // bump to force reload from server JSON
+const STORAGE_VERSION = '4'; // bump to force reload with linkedin URLs
 
 function loadFromStorage() {
   try {
@@ -696,6 +696,7 @@ function addCandidate(data) {
     name: data.name || 'Unknown',
     role: data.role || 'Unknown Role',
     email: data.email || '',
+    linkedin: data.linkedin || '',
     source: data.source || 'Other',
     stage: data.stage || 'Applied',
     flag: data.flag || 'cold',
@@ -766,6 +767,7 @@ function updateCandidate(id, data) {
   if (data.name !== undefined) c.name = data.name;
   if (data.role !== undefined) c.role = data.role;
   if (data.email !== undefined) c.email = data.email;
+  if (data.linkedin !== undefined) c.linkedin = data.linkedin;
   if (data.source !== undefined) c.source = data.source;
   if (data.flag !== undefined) c.flag = data.flag;
   if (data.notes !== undefined) c.notes = data.notes;
@@ -823,6 +825,10 @@ function openAddPanel() {
       <input class="field-input" id="f-role" placeholder="e.g. Senior Software Engineer" list="roleList" />
       <datalist id="roleList">${ROLES_SUGGEST.map(r => `<option value="${r}">`).join('')}</datalist>
     </div>
+    <div class="field">
+      <label class="field-label">LinkedIn URL</label>
+      <input class="field-input" id="f-linkedin" placeholder="https://www.linkedin.com/in/..." />
+    </div>
     <div class="field-row">
       <div class="field">
         <label class="field-label">Email</label>
@@ -872,6 +878,7 @@ function submitAdd() {
     name,
     role: document.getElementById('f-role').value.trim(),
     email: document.getElementById('f-email').value.trim(),
+    linkedin: document.getElementById('f-linkedin').value.trim(),
     source: document.getElementById('f-source').value,
     stage: document.getElementById('f-stage').value,
     flag: document.getElementById('f-flag').value,
@@ -899,6 +906,7 @@ function openDetail(id) {
     <div class="detail-section">
       <div class="detail-section-title">Info</div>
       <div class="detail-row"><span class="label">Email</span><span class="value">${esc(c.email || '—')}</span></div>
+      ${c.linkedin ? `<div class="detail-row"><span class="label">LinkedIn</span><span class="value"><a href="${esc(c.linkedin)}" target="_blank" rel="noopener" style="color:var(--yc);text-decoration:none;font-family:var(--mono);font-size:12px;">View Profile →</a></span></div>` : ''}
       <div class="detail-row"><span class="label">Source</span><span class="value">${esc(c.source)}</span></div>
       <div class="detail-row"><span class="label">Priority</span><span class="value">${c.flag}</span></div>
       <div class="detail-row"><span class="label">Added</span><span class="value">${c.added}</span></div>
