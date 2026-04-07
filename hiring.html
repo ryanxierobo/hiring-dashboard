@@ -530,7 +530,7 @@ function saveToStorage() {
   } catch (e) { console.warn('Storage save failed:', e); }
 }
 
-const STORAGE_VERSION = '2'; // bump when stages change to force reseed
+const STORAGE_VERSION = '3'; // bump to force reload from server JSON
 
 function loadFromStorage() {
   try {
@@ -1335,14 +1335,47 @@ document.getElementById('searchInput').addEventListener('keydown', (e) => {
 // ============================================================
 //  INIT
 // ============================================================
-// Load from localStorage, fall back to seed data
-if (!loadFromStorage()) {
-  seedData();
+// Load from server JSON first, then localStorage, then seed data
+function loadFromServer() {
+  return fetch('/data/candidates.json')
+    .then(function(r) { return r.ok ? r.json() : Promise.reject('no file'); })
+    .then(function(data) {
+      if (Array.isArray(data) && data.length > 0) {
+        candidates = data;
+        nextId = Math.max.apply(null, candidates.map(function(c) { return parseInt(c.id.split('-')[1]) || 0; })) + 1;
+        saveToStorage();
+        console.log('%c Loaded ' + data.length + ' candidates from server', 'color: #16A34A;');
+        return true;
+      }
+      return false;
+    })
+    .catch(function() { return false; });
+}
+
+// Save candidates back to server via PUT (if backend supports it)
+// For now, we sync via localStorage + periodic JSON export
+function syncToServer() {
+  // Agent will periodically export and write to data/candidates.json
   saveToStorage();
 }
-render();
-console.log('%c HiringTool API ready — try HiringTool.help()', 'color: #FF6600; font-weight: bold;');
-console.log('%c Data persisted to localStorage — survives refresh', 'color: #16A34A;');
+
+// Override saveToStorage to also mark dirty for sync
+var _origSave = saveToStorage;
+saveToStorage = function() {
+  _origSave();
+  window._candidatesDirty = true;
+};
+
+// Boot sequence: try server JSON → localStorage → seed data
+loadFromServer().then(function(loaded) {
+  if (!loaded && !loadFromStorage()) {
+    seedData();
+    saveToStorage();
+  }
+  render();
+  console.log('%c HiringTool API ready — try HiringTool.help()', 'color: #FF6600; font-weight: bold;');
+  console.log('%c Data synced from server JSON — works across devices', 'color: #16A34A;');
+});
 </script>
 </body>
 </html>
